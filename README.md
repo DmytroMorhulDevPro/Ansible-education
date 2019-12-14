@@ -15,7 +15,7 @@ template of inventory file
             ansible_host: xxx.xxx.xxx.xxx
           host2:
             ansible_host: zzz.zzz.zzz.zzz
-          grafana:
+          host3:
             ansible_host: yyy.yyy.yyy.yyy
     vars:
       ansible_become: yes
