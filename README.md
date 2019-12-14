@@ -1,5 +1,5 @@
 # Ansible-education
-    * This repo conteain a couple roles whitch can show basic behavor of ansible roles
+   This repo conteain a couple roles which can show basic behavor of ansible roles
 
 For start using this you need to create your inventory file and basic playbook
 
