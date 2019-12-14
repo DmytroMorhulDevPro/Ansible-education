@@ -1,0 +1,34 @@
+---
+  all:
+    children: 
+      monitoring:
+        hosts:
+          prometheus:
+            ansible_host: 35.225.150.189
+            ansible_ssh_private_key_file: ~/.ssh/id_rsa
+            node_exporter_version: 0.18.0
+            domain_name: dev-pro.org
+            service_name: prometheus-edu
+            roles: 
+              - prometheus
+              - loki
+              - promtail
+              - node-exporter
+            proxied: true
+          netlogger:
+            ansible_host: 34.69.18.12
+            ansible_ssh_private_key_file: ~/.ssh/id_rsa
+            roles:
+              - promtail
+              - node-exporter
+          grafana:
+            ansible_host: 35.225.150.189
+            roles: grafana
+            domain_name: dev-pro.org
+            service_name: grafana-edu
+            proxied: true
+    vars:
+      ansible_user: ubuntu
+      ansible_become: yes
+      ansible_become_method: sudo 
+      ansible_python_interpreter: /usr/bin/python3

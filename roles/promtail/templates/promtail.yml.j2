@@ -1,0 +1,48 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+positions:
+  filename: /tmp/positions.yaml
+client:
+  url: http://{{ hostvars['prometheus']['ansible_default_ipv4']['address'] }}:3100/api/prom/push
+scrape_configs:
+  - job_name: {{ inventory_hostname }}-web
+    entry_parser: raw
+    static_configs:
+    - targets:
+        - localhost
+      labels:
+        job: {{ inventory_hostname }}-web
+        __path__: /var/log/nginx/*.log
+  - job_name: {{ inventory_hostname }}-sys
+    entry_parser: raw
+    static_configs:
+    - targets:
+        - localhost
+      labels:
+        job: {{ inventory_hostname }}-sys
+        __path__: /var/log/syslog
+  - job_name: {{ inventory_hostname }}-kern
+    entry_parser: raw
+    static_configs:
+    - targets:
+        - localhost
+      labels:
+        job: {{ inventory_hostname }}-kern
+        __path__: /var/log/kern.log
+  - job_name: {{ inventory_hostname }}-auth
+    entry_parser: raw
+    static_configs:
+    - targets:
+        - localhost
+      labels:
+        job: {{ inventory_hostname }}-auth
+        __path__: /var/log/auth.log
+  - job_name: {{ inventory_hostname }}-net
+    entry_parser: raw
+    static_configs:
+    - targets:
+        - localhost
+      labels:
+        job: {{ inventory_hostname }}-net
+        __path__: /var/log/network/*/*

@@ -1,0 +1,23 @@
+---
+- name: Setup docker
+  include_role:
+    name: docker_tools
+
+- name: Copy promtail configs
+  register: promtail
+  template:
+    src: "promtail.yml.j2"
+    dest: "/opt/promtail.yml"
+
+- name: Run promtail container
+  register: promtail_container
+  docker_container:
+      name: promtail
+      image: grafana/promtail
+      network_mode: host
+      restart_policy: always
+      restart: yes
+      volumes:
+        - "/opt/promtail.yml:/etc/promtail/docker-config.yaml" 
+        - "/var/log/:/var/log/"
+      command: -config.file=/etc/promtail/docker-config.yaml
