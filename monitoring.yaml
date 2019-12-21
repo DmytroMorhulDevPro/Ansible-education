@@ -1,0 +1,11 @@
+---
+- name: Run monitoring provisioning
+  hosts: all
+  gather_facts: true
+  tasks:
+    - name: Provision role
+      include_role:
+        name: "{{ role }}"
+      with_items: "{{ roles }}"
+      loop_control:
+        loop_var: role
